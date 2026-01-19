@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Orçamento SESMT</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposta Orçamento 2026 + SESMT</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body { background-color: #f4f6f9; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; height: 100vh; display: flex; flex-direction: column; overflow: hidden; position: relative; }
+        
+        /* Marca d'água AGSUS */
+        .agsus-badge {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 900;
+            font-size: 1.5rem;
+            z-index: 1050;
+            letter-spacing: 2px;
+        }
+
+        .header-title { background: #1a237e; color: white; padding: 15px 20px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); position: relative; }
+        
+        .summary-container { display: flex; gap: 15px; padding: 15px 20px; background: #fff; border-bottom: 1px solid #dee2e6; }
+        .summary-card { flex: 1; padding: 12px; border-radius: 8px; border-left: 5px solid; box-shadow: 0 2px 6px rgba(0,0,0,0.05); background: #f8f9fa; }
+        .card-label { font-size: 0.75rem; text-transform: uppercase; color: #666; font-weight: bold; }
+        .card-value { font-size: 1.2rem; font-weight: 800; color: #333; }
+        
+        .main-layout { display: flex; flex: 1; overflow: hidden; padding: 10px; gap: 10px; padding-bottom: 50px; }
+        
+        #map-container { flex: 1; background: white; border-radius: 12px; border: 1px solid #ddd; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        #map { height: 100%; width: 100%; }
+
+        #table-container { flex: 1.2; display: flex; flex-direction: column; background: white; border-radius: 12px; border: 1px solid #ddd; box-shadow: 0 4px 12px rgba(0,0,0,0.08); overflow: hidden; }
+        .search-area { padding: 10px; background: #fff; border-bottom: 1px solid #eee; }
+        .table-scroll { flex: 1; overflow-y: auto; }
+        
+        .table { margin-bottom: 0; }
+        .table thead { position: sticky; top: 0; background: #212529; color: white; z-index: 10; font-size: 0.75rem; }
+        .table td { font-size: 0.8rem; vertical-align: middle; }
+        
+        .highlight-row { background-color: #fff9c4 !important; font-weight: bold; outline: 2px solid #fbc02d; transition: 0.3s; }
+        
+        .city-label {
+            background: transparent; border: none; box-shadow: none;
+            color: #333; font-weight: 700; font-size: 10px; text-transform: uppercase;
+            text-shadow: 1px 1px 2px white;
+        }
+
+        /* Rodapé com Link */
+        .footer-link {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-top: 1px solid #dee2e6;
+            z-index: 1000;
+        }
+        .footer-link a {
+            text-decoration: none;
+            color: #555;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+        .footer-link a:hover { color: #4285F4; }
+        .footer-link i { color: #34A853; margin-right: 8px; font-size: 1.1rem; }
+    </style>
+</head>
+<body>
+
+<div class="agsus-badge">AGSUS</div>
+
+<div class="header-title">
+    <h3 class="mb-0">Proposta Orçamento 2026 + SESMT</h3>
+</div>
+
+<div class="summary-container">
+    <div class="summary-card" style="border-left-color: #4caf50;">
+        <div class="card-label">Total Orçamento 2026</div>
+        <div class="card-value">R$ 56.050.485,30</div>
+    </div>
+    <div class="summary-card" style="border-left-color: #2196f3;">
+        <div class="card-label">Total 2026 + SESMT</div>
+        <div class="card-value">R$ 68.523.118,06</div>
+    </div>
+    <div class="summary-card" style="border-left-color: #9c27b0;">
+        <div class="card-label">Valor Total Aumento</div>
+        <div class="card-value">R$ 12.472.632,76</div>
+    </div>
+    <div class="summary-card" style="border-left-color: #333;">
+        <div class="card-label">Trabalhadores Adicionais</div>
+        <div class="card-value">108</div>
+    </div>
+</div>
+
+<div class="main-layout">
+    <div id="map-container">
+        <div id="map"></div>
+    </div>
+
+    <div id="table-container">
+        <div class="search-area">
+            <input type="text" id="searchInput" class="form-control form-control-sm" placeholder="🔍 Buscar por escritório ou cidade...">
+        </div>
+        <div class="table-scroll">
+            <table class="table table-sm table-hover" id="mainTable">
+                <thead>
+                    <tr>
+                        <th onclick="sortTable('esc')">Escritório ⇅</th>
+                        <th onclick="sortTable('cid')">Cidade ⇅</th>
+                        <th onclick="sortTable('qtd')">Qtd ⇅</th>
+                        <th onclick="sortTable('o26')">Orç. 2026 ⇅</th>
+                        <th onclick="sortTable('ses')">Com SESMT ⇅</th>
+                        <th onclick="sortTable('aum')">Aumento ⇅</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="footer-link">
+    <a href="https://drive.google.com/drive/folders/17Gkyyn0WCS5Qs9uIR8M_Vaf2IwAhc0JW?usp=drive_link" target="_blank">
+        <i class="fab fa-google-drive"></i> Acessar Documentação da Proposta
+    </a>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+    const dados = [
+        {esc: "Distrital", cid: "Boa Vista", o26: 1759439.55, ses: 3200258.63, aum: 1440819.09, qtd: 10, lat: 2.82, lng: -60.67},
+        {esc: "Distrital", cid: "Florianópolis", o26: 1363547.36, ses: 2458367.25, aum: 1094819.89, qtd: 6, lat: -27.59, lng: -48.54},
+        {esc: "Distrital", cid: "Recife", o26: 1169950.19, ses: 1887903.77, aum: 717953.57, qtd: 3, lat: -8.05, lng: -34.88},
+        {esc: "Distrital", cid: "Salvador", o26: 1173094.36, ses: 1831503.77, aum: 658409.41, qtd: 3, lat: -12.97, lng: -38.50},
+        {esc: "Distrital", cid: "Manaus", o26: 1332491.72, ses: 1956542.73, aum: 624051.01, qtd: 3, lat: -3.11, lng: -60.02},
+        {esc: "Distrital", cid: "Porto Velho", o26: 1286447.36, ses: 1777503.77, aum: 491056.41, qtd: 3, lat: -8.76, lng: -63.90},
+        {esc: "Distrital", cid: "Curitiba", o26: 1360965.00, ses: 1809524.81, aum: 448559.81, qtd: 3, lat: -25.42, lng: -49.27},
+        {esc: "Distrital", cid: "Lábrea", o26: 1527281.36, ses: 1965379.37, aum: 438098.01, qtd: 3, lat: -7.25, lng: -64.79},
+        {esc: "Distrital", cid: "São Luiz", o26: 1380347.36, ses: 1801503.77, aum: 421156.41, qtd: 3, lat: -2.53, lng: -44.30},
+        {esc: "Distrital", cid: "São Gabriel Cachoeira", o26: 1455047.36, ses: 1843103.77, aum: 388056.41, qtd: 3, lat: -0.13, lng: -67.08},
+        {esc: "Distrital", cid: "Tabatinga", o26: 1646657.46, ses: 2024923.73, aum: 378266.27, qtd: 3, lat: -4.23, lng: -69.94},
+        {esc: "Distrital", cid: "Rio Branco", o26: 1379947.36, ses: 1753856.83, aum: 373909.47, qtd: 3, lat: -9.97, lng: -67.81},
+        {esc: "Distrital", cid: "Macapá", o26: 1424147.36, ses: 1786856.83, aum: 362709.47, qtd: 3, lat: 0.03, lng: -51.06},
+        {esc: "Distrital", cid: "Cacoal", o26: 1324513.36, ses: 1684856.83, aum: 360343.47, qtd: 3, lat: -11.43, lng: -61.44},
+        {esc: "Distrital", cid: "Cruzeiro do Sul", o26: 1389647.36, ses: 1726856.83, aum: 337209.47, qtd: 3, lat: -7.63, lng: -72.67},
+        {esc: "Distrital", cid: "Belém", o26: 1474781.36, ses: 1796179.37, aum: 321398.01, qtd: 3, lat: -1.45, lng: -48.50},
+        {esc: "Distrital", cid: "Fortaleza", o26: 1390147.36, ses: 1709256.83, aum: 319109.47, qtd: 3, lat: -3.71, lng: -38.54},
+        {esc: "Distrital", cid: "Canarana", o26: 1433247.36, ses: 1734296.83, aum: 301049.47, qtd: 3, lat: -13.55, lng: -52.27},
+        {esc: "Distrital", cid: "Itaituba", o26: 1461047.36, ses: 1747656.83, aum: 286609.47, qtd: 3, lat: -4.27, lng: -55.98},
+        {esc: "Distrital", cid: "Maceió", o26: 1352347.36, ses: 1635456.83, aum: 283109.47, qtd: 3, lat: -9.66, lng: -35.73},
+        {esc: "Distrital", cid: "Palmas", o26: 1327547.36, ses: 1610256.83, aum: 282709.47, qtd: 3, lat: -10.16, lng: -48.33},
+        {esc: "Distrital", cid: "João Pessoa", o26: 1339747.36, ses: 1621656.83, aum: 281909.47, qtd: 3, lat: -7.11, lng: -34.86},
+        {esc: "Distrital", cid: "Altamira", o26: 1361007.36, ses: 1603016.83, aum: 242009.47, qtd: 3, lat: -3.20, lng: -52.20},
+        {esc: "Distrital", cid: "Barra do Garças", o26: 1218351.46, ses: 1441081.68, aum: 222730.22, qtd: 3, lat: -15.89, lng: -52.25},
+        {esc: "Distrital", cid: "Campo Grande", o26: 1319581.36, ses: 1533198.25, aum: 213616.89, qtd: 3, lat: -20.44, lng: -54.64},
+        {esc: "Distrital", cid: "Gov. Valadares", o26: 1190387.36, ses: 1390504.25, aum: 200116.89, qtd: 3, lat: -18.85, lng: -41.94},
+        {esc: "Distrital", cid: "Tefé", o26: 1317318.10, ses: 1510534.99, aum: 193216.89, qtd: 3, lat: -3.35, lng: -64.71},
+        {esc: "Distrital", cid: "Parintins", o26: 1469047.36, ses: 1656536.83, aum: 187489.47, qtd: 3, lat: -2.62, lng: -56.73},
+        {esc: "Distrital", cid: "Cuiabá", o26: 1174924.00, ses: 1352971.37, aum: 178047.37, qtd: 3, lat: -15.60, lng: -56.09},
+        {esc: "Distrital", cid: "S. Félix Araguaia", o26: 1465447.36, ses: 1640409.90, aum: 174962.54, qtd: 2, lat: -11.61, lng: -50.67},
+        {esc: "Distrital", cid: "Redenção", o26: 1191383.46, ses: 1296383.01, aum: 104999.55, lat: -8.02, lng: -50.03, qtd: 2},
+        {esc: "Distrital", cid: "Atalaia do Norte", o26: 1160548.90, ses: 1254618.85, aum: 94069.95, qtd: 2, lat: -4.37, lng: -70.19},
+        {esc: "Distrital", cid: "Colíder", o26: 1258237.70, ses: 1308298.21, aum: 50060.51, qtd: 2, lat: -10.81, lng: -55.45}
+    ];
+
+    let currentSort = { key: 'aum', asc: false };
+    const maxAum = Math.max(...dados.map(d => d.aum));
+    const minAum = Math.min(...dados.map(d => d.aum));
+
+    // Nova Escala de Cores: Verde (baixo) -> Azul (médio) -> Roxo (alto)
+    function getColor(val) {
+        const ratio = maxAum === minAum ? 0 : (val - minAum) / (maxAum - minAum);
+        let r, g, b;
+
+        if (ratio < 0.5) {
+            // De Verde (76, 175, 80) para Azul (33, 150, 243)
+            const localRatio = ratio * 2;
+            r = 76 + (33 - 76) * localRatio;
+            g = 175 + (150 - 175) * localRatio;
+            b = 80 + (243 - 80) * localRatio;
+        } else {
+            // De Azul (33, 150, 243) para Roxo (156, 39, 176)
+            const localRatio = (ratio - 0.5) * 2;
+            r = 33 + (156 - 33) * localRatio;
+            g = 150 + (39 - 150) * localRatio;
+            b = 243 + (176 - 243) * localRatio;
+        }
+        return `rgb(${Math.floor(r)}, ${Math.floor(g)}, ${Math.floor(b)})`;
+    }
+
+    const map = L.map('map').setView([-14, -54], 4);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png').addTo(map);
+
+    function renderTable() {
+        const tbody = document.getElementById('table-body');
+        tbody.innerHTML = '';
+        dados.forEach((d) => {
+            const row = document.createElement('tr');
+            row.id = `row-${d.cid.replace(/\s+/g, '-')}`;
+            const color = getColor(d.aum);
+            row.innerHTML = `
+                <td>${d.esc}</td>
+                <td><strong>${d.cid}</strong></td>
+                <td class="text-center">${d.qtd}</td>
+                <td class="text-end">${d.o26.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td>
+                <td class="text-end text-muted">${d.ses.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td>
+                <td class="text-end" style="color: ${color}; font-weight: bold">${d.aum.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td>
+            `;
+            tbody.appendChild(row);
+        });
+    }
+
+    function sortTable(key) {
+        if (currentSort.key === key) currentSort.asc = !currentSort.asc;
+        else { currentSort.key = key; currentSort.asc = true; }
+        dados.sort((a, b) => {
+            let valA = a[key], valB = b[key];
+            if (typeof valA === 'string') return currentSort.asc ? valA.localeCompare(valB) : valB.localeCompare(valA);
+            return currentSort.asc ? valA - valB : valB - valA;
+        });
+        renderTable();
+    }
+
+    dados.forEach((d) => {
+        const circle = L.circleMarker([d.lat, d.lng], {
+            radius: 9, fillColor: getColor(d.aum), color: "#fff", weight: 2, fillOpacity: 0.9
+        }).addTo(map);
+
+        circle.bindTooltip(d.cid, { permanent: true, direction: 'top', className: 'city-label', offset: [0, -5] });
+
+        circle.on('click', () => {
+            document.querySelectorAll('tr').forEach(r => r.classList.remove('highlight-row'));
+            const targetId = `row-${d.cid.replace(/\s+/g, '-')}`;
+            const tr = document.getElementById(targetId);
+            if(tr) {
+                tr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                tr.classList.add('highlight-row');
+            }
+        });
+    });
+
+    document.getElementById('searchInput').addEventListener('keyup', function() {
+        const term = this.value.toLowerCase();
+        document.querySelectorAll('#table-body tr').forEach(tr => {
+            tr.style.display = tr.innerText.toLowerCase().includes(term) ? '' : 'none';
+        });
+    });
+
+    sortTable('aum');
+</script>
+
+</body>
+</html>
+    
+  </body>
+  
+</html>
