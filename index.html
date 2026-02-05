@@ -101,7 +101,9 @@
         
         .table { margin-bottom: 0; }
         .table thead { position: sticky; top: 0; background: #212529; color: white; z-index: 10; font-size: 0.75rem; }
-        .table td { font-size: 0.8rem; vertical-align: middle; }
+        .table td { font-size: 0.8rem; vertical-align: middle; text-align: center; } /* Centralizado */
+        .table th { text-align: center; cursor: pointer; } /* Centralizado e com cursor pointer */
+        .table th:hover { background-color: #343a40; }
         
         .highlight-row { background-color: #fff9c4 !important; font-weight: bold; outline: 2px solid #fbc02d; transition: 0.3s; }
         
@@ -215,7 +217,7 @@
 </div>
 
 <div class="footer-link">
-    <a href="https://drive.google.com/drive/folders/17Gkyyn0WCS5Qs9uIR8M_Vaf2IwAhc0JW?usp=drive_link" target="_blank">
+    <a href="https://drive.google.com/drive/u/1/folders/1OoMySo0CRk_XfTPLfDCS3iXlj0HTIgDQ" target="_blank">
         <i class="fab fa-google-drive"></i> Acessar Documentação da Proposta
     </a>
 </div>
@@ -296,10 +298,10 @@
             row.innerHTML = `
                 <td>${d.esc}</td>
                 <td><strong>${d.cid}</strong></td>
-                <td class="text-center">${d.qtd}</td>
-                <td class="text-end">${d.o26.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td>
-                <td class="text-end text-muted">${d.ses.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td>
-                <td class="text-end" style="color: ${color}; font-weight: bold">${d.aum.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td>
+                <td>${d.qtd}</td>
+                <td>${d.o26.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td>
+                <td>${d.ses.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td>
+                <td style="color: ${color}; font-weight: bold">${d.aum.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td>
             `;
             tbody.appendChild(row);
         });
