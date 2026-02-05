@@ -153,23 +153,23 @@
     </div>
     <div class="summary-card" style="border-left-color: #2196f3;">
         <div class="card-label">Total 2026 + SESMT</div>
-        <div class="card-value">R$ 71.985.990,19</div>
+        <div class="card-value">R$ 72.419.668,84</div>
     </div>
     <div class="summary-card" style="border-left-color: #9c27b0;">
         <div class="card-label">Valor Total Aumento</div>
-        <div class="card-value">R$ 15.948.804,56</div>
+        <div class="card-value">R$ 16.382.483,21</div>
     </div>
     <div class="summary-card" style="border-left-color: #333;">
         <div class="card-label">Trabalhadores Adicionais</div>
-        <div class="card-value">108</div>
+        <div class="card-value">112</div>
     </div>
     <div class="summary-card" style="border-left-color: #ff9800;">
         <div class="card-label">Custo de Pessoal</div>
-        <div class="card-value">R$ 11.276.019,93</div>
+        <div class="card-value">R$ 13,592,748.75 </div>
     </div>
     <div class="summary-card" style="border-left-color: #795548;">
         <div class="card-label">Outros Custos</div>
-        <div class="card-value">R$ 4.672.784,63</div>
+        <div class="card-value">R$ 2.789.734,46</div>
     </div>
 </div>
 
@@ -225,40 +225,40 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
     const dados = [
-        {esc: "Distrital", cid: "Boa Vista", o26: 1759439.55, ses: 3456115.43, aum: 1696675.89, qtd: 10, lat: 2.82, lng: -60.67},
-        {esc: "Distrital", cid: "Florianópolis", o26: 1363547.36, ses: 2458367.25, aum: 1094819.89, qtd: 6, lat: -27.59, lng: -48.54},
-        {esc: "Distrital", cid: "Manaus", o26: 1332491.72, ses: 2359495.28, aum: 1027003.56, qtd: 3, lat: -3.11, lng: -60.02},
-        {esc: "Distrital", cid: "Recife", o26: 1169950.19, ses: 2088522.17, aum: 918571.97, qtd: 3, lat: -8.05, lng: -34.88},
-        {esc: "Distrital", cid: "Porto Velho", o26: 1286447.36, ses: 2150246.85, aum: 863799.49, qtd: 3, lat: -8.76, lng: -63.90},
-        {esc: "Distrital", cid: "Lábrea", o26: 1527281.36, ses: 2336406.70, aum: 809125.34, qtd: 3, lat: -7.25, lng: -64.79},
-        {esc: "Distrital", cid: "Salvador", o26: 1173094.36, ses: 1831503.77, aum: 658409.41, qtd: 3, lat: -12.97, lng: -38.50},
-        {esc: "Distrital", cid: "Canarana", o26: 1433247.36, ses: 1936630.98, aum: 503383.62, qtd: 3, lat: -13.55, lng: -52.27},
-        {esc: "Distrital", cid: "Curitiba", o26: 1360965.00, ses: 1809524.81, aum: 448559.81, qtd: 3, lat: -25.42, lng: -49.27},
-        {esc: "Distrital", cid: "São Luiz", o26: 1380347.36, ses: 1801503.77, aum: 421156.41, qtd: 3, lat: -2.53, lng: -44.30},
-        {esc: "Distrital", cid: "Colíder", o26: 1258237.70, ses: 1674866.53, aum: 416628.83, qtd: 1, lat: -10.81, lng: -55.45},
-        {esc: "Distrital", cid: "Fortaleza", o26: 1390147.36, ses: 1803069.77, aum: 412922.41, qtd: 3, lat: -3.71, lng: -38.54},
-        {esc: "Distrital", cid: "Campo Grande", o26: 1319581.36, ses: 1723179.37, aum: 403598.01, qtd: 3, lat: -20.44, lng: -54.64},
-        {esc: "Distrital", cid: "Barra do Garças", o26: 1218351.46, ses: 1607578.00, aum: 389226.54, qtd: 3, lat: -15.89, lng: -52.25},
-        {esc: "Distrital", cid: "São Gabriel", o26: 1455047.36, ses: 1843103.77, aum: 388056.41, qtd: 3, lat: -0.13, lng: -67.08},
-        {esc: "Distrital", cid: "Tefé", o26: 1317318.10, ses: 1700516.11, aum: 383198.01, qtd: 3, lat: -3.35, lng: -64.71},
-        {esc: "Distrital", cid: "Tabatinga", o26: 1646657.46, ses: 2024923.73, aum: 378266.27, qtd: 3, lat: -4.23, lng: -69.94},
-        {esc: "Distrital", cid: "Rio Branco", o26: 1379947.36, ses: 1753856.83, aum: 373909.47, qtd: 3, lat: -9.97, lng: -67.81},
-        {esc: "Distrital", cid: "Gov. Valadares", o26: 1190387.36, ses: 1556454.17, aum: 366066.81, qtd: 3, lat: -18.85, lng: -41.94},
-        {esc: "Distrital", cid: "Macapá", o26: 1424147.36, ses: 1786856.83, aum: 362709.47, qtd: 3, lat: 0.03, lng: -51.06},
-        {esc: "Distrital", cid: "Cacoal", o26: 1324513.36, ses: 1684856.83, aum: 360343.47, qtd: 3, lat: -11.43, lng: -61.44},
-        {esc: "Distrital", cid: "Cuiabá", o26: 1174924.00, ses: 1518921.29, aum: 343997.29, qtd: 3, lat: -15.60, lng: -56.09},
-        {esc: "Distrital", cid: "Cruzeiro do Sul", o26: 1389647.36, ses: 1726856.83, aum: 337209.47, qtd: 3, lat: -7.63, lng: -72.67},
-        {esc: "Distrital", cid: "Belém", o26: 1474781.36, ses: 1796179.37, aum: 321398.01, qtd: 3, lat: -1.45, lng: -48.50},
-        {esc: "Distrital", cid: "Itaituba", o26: 1461047.36, ses: 1747656.83, aum: 286609.47, qtd: 3, lat: -4.27, lng: -55.98},
-        {esc: "Distrital", cid: "Maceió", o26: 1352347.36, ses: 1635456.83, aum: 283109.47, qtd: 3, lat: -9.66, lng: -35.73},
-        {esc: "Distrital", cid: "Palmas", o26: 1327547.36, ses: 1610256.83, aum: 282709.47, qtd: 3, lat: -10.16, lng: -48.33},
-        {esc: "Distrital", cid: "João Pessoa", o26: 1339747.36, ses: 1621656.83, aum: 281909.47, qtd: 3, lat: -7.11, lng: -34.86},
-        {esc: "Distrital", cid: "Redenção", o26: 1191383.46, ses: 1462332.93, aum: 270949.47, qtd: 2, lat: -8.02, lng: -50.03},
-        {esc: "Distrital", cid: "Atalaia do Norte", o26: 1160548.90, ses: 1420568.77, aum: 260019.87, qtd: 2, lat: -4.37, lng: -70.19},
-        {esc: "Distrital", cid: "Altamira", o26: 1361007.36, ses: 1603016.83, aum: 242009.47, qtd: 3, lat: -3.20, lng: -52.20},
-        {esc: "Distrital", cid: "Parintins", o26: 1469047.36, ses: 1656536.83, aum: 187489.47, qtd: 3, lat: -2.62, lng: -56.73},
-        {esc: "Distrital", cid: "S. Félix Araguaia", o26: 1465447.36, ses: 1640409.90, aum: 174962.54, qtd: 1, lat: -11.61, lng: -50.67}
-    ];
+    {esc: "Distrital", cid: "Boa Vista", o26: 3682633.02, ses: 5100169.41, aum: 1417536.39, qtd: 10, lat: 2.82, lng: -60.67},
+    {esc: "Distrital", cid: "Tabatinga", o26: 1646657.46, ses: 2716281.74, aum: 1069624.28, qtd: 8, lat: -4.23, lng: -69.94},
+    {esc: "Distrital", cid: "Florianópolis", o26: 1363547.36, ses: 2291928.52, aum: 928381.16, qtd: 4, lat: -27.59, lng: -48.54},
+    {esc: "Distrital", cid: "Manaus", o26: 1332491.72, ses: 2270040.63, aum: 937548.91, qtd: 4, lat: -3.11, lng: -60.02},
+    {esc: "Distrital", cid: "Recife", o26: 1169950.19, ses: 1906253.36, aum: 736303.16, qtd: 4, lat: -8.05, lng: -34.88},
+    {esc: "Distrital", cid: "Porto Velho", o26: 1286447.36, ses: 2065326.33, aum: 778878.97, qtd: 4, lat: -8.76, lng: -63.90},
+    {esc: "Distrital", cid: "Salvador", o26: 1173094.36, ses: 1967453.36, aum: 794359.00, qtd: 4, lat: -12.97, lng: -38.50},
+    {esc: "Distrital", cid: "Campo Grande", o26: 1319581.36, ses: 2185085.46, aum: 865504.10, qtd: 6, lat: -20.44, lng: -54.64},
+    {esc: "Distrital", cid: "Curitiba", o26: 1360965.00, ses: 1821057.73, aum: 460092.73, qtd: 6, lat: -25.42, lng: -49.27},
+    {esc: "Distrital", cid: "São Luiz", o26: 1380347.36, ses: 1747645.16, aum: 367297.80, qtd: 6, lat: -2.53, lng: -44.30},
+    {esc: "Distrital", cid: "Gov. Valadares", o26: 1190387.36, ses: 1658803.76, aum: 468416.40, qtd: 4, lat: -18.85, lng: -41.94},
+    {esc: "Distrital", cid: "Tefé", o26: 1317318.10, ses: 1795725.03, aum: 478406.93, qtd: 4, lat: -3.35, lng: -64.71},
+    {esc: "Distrital", cid: "Barra do Garças", o26: 1218351.46, ses: 1709704.39, aum: 491352.93, qtd: 4, lat: -15.89, lng: -52.25},
+    {esc: "Distrital", cid: "São Gabriel da Cachoeira", o26: 1455047.36, ses: 1991053.36, aum: 536006.00, qtd: 4, lat: -0.13, lng: -67.08},
+    {esc: "Distrital", cid: "Cuiabá", o26: 1174924.00, ses: 1624030.26, aum: 449106.26, qtd: 4, lat: -15.60, lng: -56.09},
+    {esc: "Distrital", cid: "Belém", o26: 1474781.36, ses: 1925104.10, aum: 450322.74, qtd: 4, lat: -1.45, lng: -48.50},
+    {esc: "Distrital", cid: "Canarana", o26: 1433247.36, ses: 1832467.40, aum: 399220.04, qtd: 2, lat: -13.55, lng: -52.27},
+    {esc: "Distrital", cid: "Macapá", o26: 1424147.36, ses: 1798554.43, aum: 374407.07, qtd: 2, lat: 0.03, lng: -51.06},
+    {esc: "Distrital", cid: "Rio Branco", o26: 1379947.36, ses: 1664154.43, aum: 284207.07, qtd: 2, lat: -9.97, lng: -67.81},
+    {esc: "Distrital", cid: "Cacoal", o26: 1324513.36, ses: 1626354.43, aum: 301841.07, qtd: 2, lat: -11.43, lng: -61.44},
+    {esc: "Distrital", cid: "Lábrea", o26: 1527281.36, ses: 1857847.36, aum: 330566.00, qtd: 2, lat: -7.25, lng: -64.79},
+    {esc: "Distrital", cid: "Fortaleza", o26: 1390147.36, ses: 1657954.43, aum: 267807.07, qtd: 2, lat: -3.71, lng: -38.54},
+    {esc: "Distrital", cid: "Cruzeiro do Sul", o26: 1389647.36, ses: 1637154.43, aum: 247507.07, qtd: 2, lat: -7.63, lng: -72.67},
+    {esc: "Distrital", cid: "Redenção", o26: 1191383.46, ses: 1433830.53, aum: 242447.07, qtd: 2, lat: -8.02, lng: -50.03},
+    {esc: "Distrital", cid: "Altamira", o26: 1361007.36, ses: 1572015.65, aum: 211008.29, qtd: 2, lat: -3.20, lng: -52.20},
+    {esc: "Distrital", cid: "Atalaia do Norte", o26: 1160548.90, ses: 1369266.37, aum: 208717.47, qtd: 2, lat: -4.37, lng: -70.19},
+    {esc: "Distrital", cid: "Itaituba", o26: 1461047.36, ses: 1653154.43, aum: 192107.07, qtd: 2, lat: -4.27, lng: -55.98},
+    {esc: "Distrital", cid: "Maceió", o26: 1352347.36, ses: 1537354.43, aum: 185007.07, qtd: 2, lat: -9.66, lng: -35.73},
+    {esc: "Distrital", cid: "S. Félix Araguaia", o26: 1465447.36, ses: 1627663.69, aum: 162216.33, qtd: 1, lat: -11.61, lng: -50.67},
+    {esc: "Distrital", cid: "Parintins", o26: 1469047.36, ses: 1626754.43, aum: 157707.07, qtd: 2, lat: -2.62, lng: -56.73},
+    {esc: "Distrital", cid: "Palmas", o26: 1327547.36, ses: 1558954.43, aum: 231407.07, qtd: 2, lat: -10.16, lng: -48.33},
+    {esc: "Distrital", cid: "João Pessoa", o26: 1339747.36, ses: 1563154.43, aum: 223407.07, qtd: 2, lat: -7.11, lng: -34.86},
+    {esc: "Distrital", cid: "Colíder", o26: 1258237.70, ses: 1325601.93, aum: 67364.23, qtd: 1, lat: -10.81, lng: -55.45}
+];
 
     let currentSort = { key: 'aum', asc: false };
     const maxAum = Math.max(...dados.map(d => d.aum));
